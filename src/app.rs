@@ -42,9 +42,9 @@ fn HomePage(cx: Scope) -> impl IntoView {
         <h1>"Welcome to Leptos!"</h1>
         <ActionForm action=send_strings>
             <p><InnerComponent/></p>
-            //<p><input type="text" name="input2"/></p>
-            //<p> <input type="text" name="input3"/></p>
-            //<p><input type="text" name="input4"/></p>
+            <p><label for="input2">"Input2"</label><input type="text" name="input2" required/></p>
+            <p><label for="input3">"Input3"</label><input type="text" name="input3" required/></p>
+            <p><label for="input4">"Input4"</label><input type="text" name="input4" required/></p>
             <input type="submit" value="Send Strings"/>
         </ActionForm>
     }
@@ -66,7 +66,7 @@ fn InnerComponent(cx: Scope) -> impl IntoView {
       {move || {
           string_resource.read(cx).map(|n| match n {
               Err(_) => view! {cx, <>"Load Failed"</>},
-              Ok(value) => view! {cx, <><input type="text" disabled=true name="input" value=value/></>},
+              Ok(value) => view! {cx, <><input type="text" readonly name="input" value=value/></>},
           })
       }}
     </Suspense>
@@ -77,14 +77,15 @@ fn InnerComponent(cx: Scope) -> impl IntoView {
 pub async fn send_strings(
     cx: Scope,
     input: String,
-    //input2: String,
-    //input3: String,
-    //input4: String,
+    input2: String,
+    input3: String,
+    input4: String,
 ) -> Result<(), ServerFnError> {
     Ok(())
 }
 
 #[server(IssueString, "/api")]
 async fn issue_csrf(cx: Scope) -> Result<String, ServerFnError> {
+    std::thread::sleep(std::time::Duration::from_millis(450));
     Ok(String::from("This is a String"))
 }

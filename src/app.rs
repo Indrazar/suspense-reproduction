@@ -2,12 +2,6 @@ use leptos::*;
 use leptos_meta::*;
 use leptos_router::*;
 
-#[cfg(feature = "ssr")]
-pub fn register_server_functions() {
-    SendStrings::register();
-    IssueString::register();
-}
-
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.

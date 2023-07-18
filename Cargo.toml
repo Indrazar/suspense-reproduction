@@ -29,14 +29,14 @@ http = "0.2.8"
 [features]
 hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
 ssr = [
-    "dep:axum", 
-    "dep:tokio", 
-    "dep:tower", 
-    "dep:tower-http", 
-    "dep:leptos_axum", 
-    "leptos/ssr", 
-    "leptos_meta/ssr", 
-    "leptos_router/ssr", 
+    "dep:axum",
+    "dep:tokio",
+    "dep:tower",
+    "dep:tower-http",
+    "dep:leptos_axum",
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
     "dep:tracing"
 ]
 

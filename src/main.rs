@@ -9,7 +9,7 @@ async fn main() {
 
     simple_logger::SimpleLogger::new()
         .with_level(log::LevelFilter::Warn)
-        .with_module_level("auth_sessions_example", log::LevelFilter::Trace)
+        .with_module_level("suspense_reproduction", log::LevelFilter::Trace)
         .init()
         .expect("couldn't initialize logging");
 
@@ -21,14 +21,13 @@ async fn main() {
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
-    let routes = generate_route_list(|cx| view! { cx, <App/> }).await;
+    let routes = generate_route_list(|| view! { <App/> }).await;
 
     // build our application with a route
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
-        .leptos_routes(&leptos_options, routes, |cx| view! { cx, <App/> })
+        .leptos_routes(&leptos_options, routes, || view! { <App/> })
         .fallback(file_and_error_handler)
-        //.layer(Extension(Arc::new(leptos_options)))
         .with_state(leptos_options);
 
     // run our app with hyper

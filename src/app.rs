@@ -67,7 +67,7 @@ fn InnerComponent() -> impl IntoView {
             {move || {
                 suspense_string_resource.read().map(|n| match n {
                     Err(e) => view! {<>{format!("Load Failed {e}")}</>},
-                    Ok(value) => view! {<><p><DeepInner /></p><p><input type="text" readonly name="input" value=value/></p></>},
+                    Ok(value) => view! {<><p><DeepInner /></p><p>{value}</p></>},
                 })
             }}
         </Suspense>
